@@ -11,6 +11,10 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 
 import java.util.Arrays;
@@ -100,6 +104,19 @@ public class CarroServiceTest {
         carroService.apagarCarro(1L);
         Carro carro = carroService.buscarPorId(1L);
         Assertions.assertNull(carro);
+    }
+
+    @Test
+    @DisplayName("Testa se a sobrecarga do Listar Carro Está funcionando corretamente")
+    public void listarCarrosPaginadoTest(){
+
+        Pageable page = PageRequest.of(0,15);
+        Mockito.when(this.repository.findAll(page))
+                .thenReturn(new PageImpl<>(Arrays.asList(this.criaCarro())));
+
+        Page<Carro> carrosPage = carroService.listarCarros(page);
+
+        Assertions.assertTrue(carrosPage.hasContent());
     }
 
     @BeforeEach
