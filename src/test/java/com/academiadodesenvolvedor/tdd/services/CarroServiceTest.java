@@ -3,19 +3,16 @@ package com.academiadodesenvolvedor.tdd.services;
 import com.academiadodesenvolvedor.tdd.models.Carro;
 import com.academiadodesenvolvedor.tdd.repositories.CarroRepository;
 import com.academiadodesenvolvedor.tdd.services.contratos.CarroServiceContrato;
-import net.bytebuddy.dynamic.DynamicType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 
-import javax.swing.text.html.Option;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;

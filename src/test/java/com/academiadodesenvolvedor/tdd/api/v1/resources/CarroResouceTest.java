@@ -17,7 +17,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@WebMvcTest(controllers = CarroResouce.class)
 public class CarroResouceTest {
 
     @Autowired
