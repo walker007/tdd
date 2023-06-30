@@ -32,7 +32,7 @@ public class CarroService implements CarroServiceContrato {
     }
 
     @Override
-    public Carro bucarPorId(long id) {
+    public Carro buscarPorId(long id) {
         Optional<Carro> carro = carroRepository.findById(id);
 
        if(carro.isPresent()){
@@ -45,5 +45,12 @@ public class CarroService implements CarroServiceContrato {
     @Override
     public Carro atualizarCarro(Carro carro) {
         return this.carroRepository.save(carro);
+    }
+
+    @Override
+    public void apagarCarro(long id) {
+        Carro carro = buscarPorId(id);
+
+        carroRepository.delete(carro);
     }
 }

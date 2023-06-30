@@ -12,7 +12,9 @@ public interface CarroServiceContrato {
 
     List<Carro> listarCarrosPorMarca(String marca);
 
-    Carro bucarPorId(long id);
+    Carro buscarPorId(long id);
 
     Carro atualizarCarro(Carro carro);
+
+    void apagarCarro(long id);
 }
