@@ -1,5 +1,6 @@
 package com.academiadodesenvolvedor.tdd.services;
 
+import com.academiadodesenvolvedor.tdd.exceptions.NotFoundException;
 import com.academiadodesenvolvedor.tdd.models.Carro;
 import com.academiadodesenvolvedor.tdd.repositories.CarroRepository;
 import com.academiadodesenvolvedor.tdd.services.contratos.CarroServiceContrato;
@@ -42,11 +43,11 @@ public class CarroService implements CarroServiceContrato {
     public Carro buscarPorId(long id) {
         Optional<Carro> carro = carroRepository.findById(id);
 
-       if(carro.isPresent()){
-           return carro.get();
+       if(carro.isEmpty()){
+           throw new NotFoundException("Não foi possível encontrar o Carro com o ID: '"+id+"'");
        }
 
-       return null;
+       return carro.get();
     }
 
     @Override

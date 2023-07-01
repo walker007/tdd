@@ -1,5 +1,6 @@
 package com.academiadodesenvolvedor.tdd.services;
 
+import com.academiadodesenvolvedor.tdd.exceptions.NotFoundException;
 import com.academiadodesenvolvedor.tdd.models.Carro;
 import com.academiadodesenvolvedor.tdd.repositories.CarroRepository;
 import com.academiadodesenvolvedor.tdd.services.contratos.CarroServiceContrato;
@@ -101,9 +102,19 @@ public class CarroServiceTest {
     @Test
     @DisplayName("Testa se a service está apagando corretamente")
     public void apagaCarroTest(){
+        Carro carroSaved = this.criaCarro();
+        carroSaved.setId(1L);
+        Mockito.when(this.repository.findById(1L))
+                .thenReturn(Optional.of(carroSaved));
+
         carroService.apagarCarro(1L);
-        Carro carro = carroService.buscarPorId(1L);
-        Assertions.assertNull(carro);
+
+        Mockito.when(this.repository.findById(1L)).thenReturn( Optional.empty()  );
+
+      Assertions.assertThrows(NotFoundException.class,() ->{
+          carroService.buscarPorId(1L);
+      });
+
     }
 
     @Test
@@ -118,7 +129,14 @@ public class CarroServiceTest {
 
         Assertions.assertTrue(carrosPage.hasContent());
     }
+    @Test
+    @DisplayName("Testa se a busca por id lança exceção")
+    public void deveLancarExecao(){
 
+        Assertions.assertThrows(NotFoundException.class, () ->{
+            this.carroService.buscarPorId(0L);
+        });
+    }
     @BeforeEach
     public void cadastraCarro(){
         Carro carro = this.criaCarro();
